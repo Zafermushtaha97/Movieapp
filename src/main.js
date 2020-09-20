@@ -10,7 +10,7 @@ import particles from "./components/particles";
 import * as firebase from "firebase"
 
 
-import axios from 'axios'
+// import axios from 'axios'
 Vue.config.productionTip = false
 Vue.component('Navbar',Navbar)
 Vue.component('ScaleLoader',ScaleLoader)
@@ -18,7 +18,7 @@ Vue.component('star-rating', StarRating);
 Vue.component('particles',particles)
 
 
-axios.defaults.baseURL = 'http://www.omdbapi.com/?apikey=51b28eb&y=2018&type=movie&Content-Type=application/json'
+// axios.defaults.baseURL = 'https://www.omdbapi.com/?apikey=51b28eb&y=2018&type=movie&Content-Type=application/json'
 new Vue({
   router,
   store,

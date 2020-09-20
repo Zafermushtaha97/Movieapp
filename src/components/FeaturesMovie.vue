@@ -6,11 +6,13 @@
 
     <v-container v-else grid-list-xl>
     <v-layout wrap>
-    <v-flex xs3
+    <v-flex lg3 md4 sm12 xs12
         v-for="(item, index) in movies"
         :key="index"
         mb-2
-        class="white--text">
+        class="white--text"
+         :class="{'mx-12': $vuetify.breakpoint.smAndDown}">
+        
         <v-hover>
             <template v-slot="{ hover }">
                <v-img
@@ -19,12 +21,13 @@
             @click="SingleMOvie(item.imdbID)"
             :elevation="hover ? 16 : 2"
             :class="{ 'on-hover': hover }"
+            class="rounded-lg"
         ></v-img>
             </template>
         </v-hover>
        <v-hover>
            <template v-slot="{ hover }">
-            <v-card-title class="subtitle movietitle" :class="{ 'on-hover-title': hover }" @click="SingleMOvie(item.imdbID)">
+            <v-card-title class="subtitle movietitle mt-6" :class="{ 'on-hover-title': hover }" @click="SingleMOvie(item.imdbID)">
             {{item.Title}} 
             </v-card-title>
            </template>
@@ -39,13 +42,13 @@
     </div>
 </template>
 <script>
-// import axios from 'axios'
-import Api from '@/services/Api'
+ import axios from 'axios'
+// import Api from '@/services/Api'
 export default {
     data(){
         return{
             movies:[],
-            loader:false
+            loader:true
         }
     },
     components:{
@@ -57,10 +60,10 @@ export default {
         }
     },
     mounted(){
-        // axios.get('http://www.omdbapi.com/?apikey=51b28eb&s=The Mummy&Content-Type=application/json')
-        Api.fetchMovieCollection('american')
+        axios.get('https://www.omdbapi.com/?apikey=51b28eb&s=american&y=2018&Content-Type=application/json')
+        // Api.fetchMovieCollection('american')
         .then(res =>{
-            this.movies = res.Search
+            this.movies = res.data.Search
             this.loader = false
         }).catch(error=>{
             console.log(error)

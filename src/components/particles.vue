@@ -133,7 +133,9 @@ export default {
   /* background-image: #122b44; */
   height: 380px;
   width: 100%;
-  background-image: url('../assets/poster-2.jpg');
-  background-size: cover;
+ background-image: url(https://assets.website-files.com/59f5ae906a27c400013267f0/5d2d9d69b1d789deb64dbca7_Photo-2.jpg);
+    background-size: cover;
+    background-position: center;
+
 }
 </style>

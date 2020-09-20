@@ -1,13 +1,17 @@
 <template>
-
- 
     <div class="movie">
         <div class="overlay">
          <Navbar></Navbar>
         <v-container class="mt-16 white--text">
             <v-layout row wrap v-if="SingleMOvie">
-                <v-flex xs3 class="mr-8">
-                    <v-img :src="SingleMOvie.Poster" max-height="425" class="rounded-lg"></v-img>
+                <v-flex xs8 md6 lg3 class="mr-8"  :class="{'mx-16': $vuetify.breakpoint.smAndDown}">
+                    <v-img :src="SingleMOvie.Poster" min-height="425" class="rounded-lg"
+                    ></v-img>
+                    <transition name="slide-fade">
+                    <div class="reviewcircle" v-if="true">
+                        <div>{{SingleMOvie.imdbRating}}</div>
+                    </div>
+                      </transition>
                 </v-flex>
                 <v-flex xs7 class="ml-12 mt-6">
                     <p class="heading movietitle">{{SingleMOvie.Title}} <span>{{SingleMOvie.Year}}</span></p>
@@ -31,21 +35,22 @@
                         {{SingleMOvie.Plot}}
                     </div>
                 </v-flex>              
-              
             </v-layout>
         </v-container>
+         <particles></particles>
     </div>
     </div>
 </template>
 
 <script>
-// import axios from 'axios'
-import Api from '@/services/Api'
+ import axios from 'axios'
+//import Api from '@/services/Api'
 export default {
     props:["id"],
     data(){
         return{
-            SingleMOvie:null
+            SingleMOvie:null,
+           
         }
     },
     computed:{
@@ -54,10 +59,10 @@ export default {
         }
     },
     mounted() {
-//    axios.get(`http://www.omdbapi.com/?apikey=51b28eb&i=${this.id}&Content-Type=application/json`)
-    Api.fetchSingleMovie(this.id)
+ axios.get(`https://www.omdbapi.com/?apikey=51b28eb&i=${this.id}&Content-Type=application/json`)
+    // Api.fetchSingleMovie(this.id)
    .then(res =>{
-       this.SingleMOvie = res
+       this.SingleMOvie = res.data
    })
 },
 }
@@ -70,16 +75,41 @@ export default {
     background-image: url(https://assets.website-files.com/59f5ae906a27c400013267f0/5d2d9d69b1d789deb64dbca7_Photo-2.jpg);
     background-position: center;
     background-size: cover;
-    height: 720px;
-      position: relative;
+ 
+    position: relative;
     top:0;
+}
+@media (max-width: 550px) {
+    .movie{
+        height: 70em;
+    }
+}
+@media (max-width: 760px) {
+    .movie{
+        height: 84em;
+    }
+}
+@media (min-width: 761px){
+    .movie{
+        height: 95em;
+    }
+}
+@media ( min-width: 992px) {
+    .movie{
+        height: 100em;
+    }
+}
+@media (min-width: 1200px) {
+    .movie{
+        height: 720px;
+    }
 }
 .movietitle{
     font-family: 'Catamaran', sans-serif;
     font-size: 3em;
 }
  .overlay{
-      position: absolute;
+    position: absolute;
     background-color: #0e151db8;
     width: 100%;
     height: 100%;
@@ -102,7 +132,99 @@ export default {
     font-family: 'Roboto', sans-serif;
     line-height: 1.8;
     font-size: 17px;
+}
 
+.slide-fade-enter-active {
+  transition: all .2s ease;
+}
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 
+@media (max-width: 600px) {
+    .reviewcircle{
+    position: absolute;
+    left: 35px;
+    top: 100px;
+    width: 60px;
+    height: 60px;
+    padding-top: 18px;
+    border-radius: 100%;
+    background-color: #f1b722;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+    }
+}
+@media (min-width: 600px) {
+      .reviewcircle{
+    position: absolute;
+    left: 35px;
+    top: 100px;
+    width: 60px;
+    height: 60px;
+    padding-top: 18px;
+    border-radius: 100%;
+    background-color: #f1b722;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+    }
+}@media  (min-width: 768px) {
+.reviewcircle{
+   position: absolute;
+    left: 25px;
+    top: 100px;
+    width: 75px;
+    height: 75px;
+    padding-top: 23px;
+    border-radius: 100%;
+    background-color: #f1b722;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+    }
+}
+
+@media  (min-width: 992px) {
+.reviewcircle{
+    position: absolute;
+    left: 38px;
+    top: 91px;
+    width: 90px;
+    height: 90px;
+    padding-top: 35px;
+    border-radius: 100%;
+    background-color: #f1b722;
+    font-size: 35px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+
+}
+}
+@media (min-width: 1200px) {
+.reviewcircle{
+    position: absolute;
+    left: 107px;
+    top: 92px;
+    width: 100px;
+    height: 100px;
+    padding-top: 35px;
+    border-radius: 100%;
+    background-color: #f1b722;
+    font-size: 35px;
+    line-height: 30px;
+    font-weight: 700;
+    text-align: center;
+    }
 }
 </style>
